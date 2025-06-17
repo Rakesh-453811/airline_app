@@ -1,0 +1,7 @@
+
+services:
+  frontend:
+    build: ./airline-app
+    ports:
+      - "80:80"
+ 

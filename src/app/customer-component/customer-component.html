@@ -1,0 +1,70 @@
+<!-- customer-component works! -->
+
+
+
+
+
+<h2>Search Customer by ID</h2>
+<input [(ngModel)]="searchId" name="searchId" type="number" placeholder="Enter Customer ID" />
+<button (click)="getCustomerById()">Search</button>
+<div *ngIf="customerById">
+  <p><strong>ID:</strong> {{ customerById.id }}</p>
+  <p><strong>First Name:</strong> {{ customerById.firstName }}</p>
+  <p><strong>Last Name:</strong> {{ customerById.lastName }}</p>
+  <p><strong>Email:</strong> {{ customerById.email }}</p>
+  <p><strong>Phone:</strong> {{ customerById.phone }}</p>
+  <p><strong>Date of Birth:</strong> {{ customerById.dateOfBirth }}</p>
+  <p><strong>Loyalty Points:</strong> {{ customerById.loyaltyPoints }}</p>
+</div>
+
+<hr />
+
+<button (click)="showAllCustomers()">Show All Customers</button>
+
+<div *ngIf="showCustomersTable">
+  <h2>All Customers</h2>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Date of Birth</th>
+        <th>Loyalty Points</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let customer of customers">
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.firstName }}</td>
+        <td>{{ customer.lastName }}</td>
+        <td>{{ customer.email }}</td>
+        <td>{{ customer.phone }}</td>
+        <td>{{ customer.dateOfBirth }}</td>
+        <td>{{ customer.loyaltyPoints }}</td>
+        <td>
+          <button (click)="populateUpdateForm(customer)">Edit</button>
+          <button (click)="deleteCustomer(customer.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr />
+
+<h2>Update Customer</h2>
+<form (ngSubmit)="updateCustomer()">
+  <input [(ngModel)]="updateCustomerData.id" name="id" type="number" placeholder="ID" readonly />
+  <input [(ngModel)]="updateCustomerData.firstName" name="updateFirstName" placeholder="First Name" required />
+  <input [(ngModel)]="updateCustomerData.lastName" name="updateLastName" placeholder="Last Name" required />
+  <input [(ngModel)]="updateCustomerData.email" name="updateEmail" type="email" placeholder="Email" required />
+  <input [(ngModel)]="updateCustomerData.phone" name="updatePhone" placeholder="Phone" required />
+  <input [(ngModel)]="updateCustomerData.dateOfBirth" name="updateDateOfBirth" type="date" placeholder="Date of Birth" required />
+  <input [(ngModel)]="updateCustomerData.loyaltyPoints" name="updateLoyaltyPoints" type="number" placeholder="Loyalty Points" min="0" required />
+  <button type="submit">Update</button>
+</form>
+

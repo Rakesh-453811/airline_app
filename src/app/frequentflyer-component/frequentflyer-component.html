@@ -1,0 +1,52 @@
+<h2>Add Frequent Flyer</h2>
+<form (ngSubmit)="addFrequentFlyer()">
+  <select name="customerId" [(ngModel)]="newFrequentFlyer.customerId" required>
+    <option [ngValue]="null">-- Select Customer --</option>
+    <option *ngFor="let c of customers" [ngValue]="c">{{c.firstName}}</option>
+  </select>
+  <input [(ngModel)]="newFrequentFlyer.membershipNumber" name="membershipNumber" placeholder="Membership Number" required />
+  <input [(ngModel)]="newFrequentFlyer.status" name="status" placeholder="Status" required />
+  <input [(ngModel)]="newFrequentFlyer.pointsEarned" name="pointsEarned" type="number" placeholder="Points Earned" min="0" required />
+  <input [(ngModel)]="newFrequentFlyer.tierExpiryDate" name="tierExpiryDate" type="date" placeholder="Tier Expiry Date" required />
+  <button type="submit">Add Frequent Flyer</button>
+</form>
+
+<hr />
+
+
+<h2>All Frequent Flyers</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Membership Number</th>
+      <th>Status</th>
+      <th>Points Earned</th>
+      <th>Tier Expiry Date</th>
+      <th>Customer ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Date of Birth</th>
+      <th>Loyalty Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let flyer of frequentFlyers">
+      <td>{{ flyer.membershipNumber }}</td>
+      <td>{{ flyer.status }}</td>
+      <td>{{ flyer.pointsEarned }}</td>
+      <td>{{ flyer.tierExpiryDate | date }}</td>
+      <td>{{ flyer.customerId.id }}</td>
+      <td>{{ flyer.customerId.firstName }}</td>
+      <td>{{ flyer.customerId.lastName }}</td>
+      <td>{{ flyer.customerId.email }}</td>
+      <td>{{ flyer.customerId.phone }}</td>
+      <td>{{ flyer.customerId.dateOfBirth | date }}</td>
+      <td>{{ flyer.customerId.loyaltyPoints }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+

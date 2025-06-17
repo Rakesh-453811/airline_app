@@ -1,0 +1,86 @@
+<!-- flight-component works! -->
+<h1>TESTING</h1>
+<h2>Add Flight</h2>
+
+<form #flightForm="ngForm" (ngSubmit)="addFlight(flightForm)">
+
+  <input [(ngModel)]="newFlight.flightNumber" name="flightNumber" placeholder="Flight Number" required />
+  <input [(ngModel)]="newFlight.departureTime" name="departureTime" type="datetime-local" placeholder="Departure Time" required />
+  <input [(ngModel)]="newFlight.arrivalTime" name="arrivalTime" type="datetime-local" placeholder="Arrival Time" required />
+  <input [(ngModel)]="newFlight.seatCapacity" name="seatCapacity" type="number" placeholder="Seat Capacity" min="1" required />
+  <input [(ngModel)]="newFlight.availableSeats" name="availableSeats" type="number" placeholder="Available Seats" min="0" required />
+  <select [(ngModel)]="newFlight.status" name="status" required>
+    <option value="">Select Status</option>
+    <option value="Scheduled">Scheduled</option>
+    <option value="Cancelled">Cancelled</option>
+    <option value="Delayed">Delayed</option>
+  </select>
+  <button type="submit">Add Flight</button>
+</form>
+
+<hr />
+
+<h2>Search Flight by ID</h2>
+<input [(ngModel)]="searchId" name="searchId" type="number" placeholder="Enter Flight ID" />
+<button (click)="getFlightById()">Search</button>
+<div *ngIf="flightById">
+  <p><strong>ID:</strong> {{ flightById.id }}</p>
+  <p><strong>Flight Number:</strong> {{ flightById.flightNumber }}</p>
+  <p><strong>Departure Time:</strong> {{ flightById.departureTime }}</p>
+  <p><strong>Arrival Time:</strong> {{ flightById.arrivalTime }}</p>
+  <p><strong>Seat Capacity:</strong> {{ flightById.seatCapacity }}</p>
+  <p><strong>Available Seats:</strong> {{ flightById.availableSeats }}</p>
+  <p><strong>Status:</strong> {{ flightById.status }}</p>
+</div>
+
+<hr />
+
+<h2>All Flights</h2>
+<table border="1">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Flight Number</th>
+      <th>Departure Time</th>
+      <th>Arrival Time</th>
+      <th>Seat Capacity</th>
+      <th>Available Seats</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let flight of flights">
+      <td>{{ flight.id }}</td>
+      <td>{{ flight.flightNumber }}</td>
+      <td>{{ flight.departureTime }}</td>
+      <td>{{ flight.arrivalTime }}</td>
+      <td>{{ flight.seatCapacity }}</td>
+      <td>{{ flight.availableSeats }}</td>
+      <td>{{ flight.status }}</td>
+      <td>
+        <button (click)="populateUpdateForm(flight)">Edit</button>
+        <button (click)="deleteFlight(flight.id!)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2>Update Flight</h2>
+<form (ngSubmit)="updateFlight()">
+  <input [(ngModel)]="updateFlightData.id" name="id" type="number" placeholder="ID" readonly />
+  <input [(ngModel)]="updateFlightData.flightNumber" name="updateFlightNumber" placeholder="Flight Number" required />
+  <input [(ngModel)]="updateFlightData.departureTime" name="updateDepartureTime" type="datetime-local" placeholder="Departure Time" required />
+  <input [(ngModel)]="updateFlightData.arrivalTime" name="updateArrivalTime" type="datetime-local" placeholder="Arrival Time" required />
+  <input [(ngModel)]="updateFlightData.seatCapacity" name="updateSeatCapacity" type="number" placeholder="Seat Capacity" min="1" required />
+  <input [(ngModel)]="updateFlightData.availableSeats" name="updateAvailableSeats" type="number" placeholder="Available Seats" min="0" required />
+  <select [(ngModel)]="updateFlightData.status" name="updateStatus" required>
+    <option value="">Select Status</option>
+    <option value="Scheduled">Scheduled</option>
+    <option value="Cancelled">Cancelled</option>
+    <option value="Delayed">Delayed</option>
+  </select>
+  <button type="submit">Update</button>
+</form>
